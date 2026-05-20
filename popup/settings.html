@@ -4,15 +4,37 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" href="settings.css" />
     </head>
-
     <body>
         <div id="popup-content">
-            <h1>Slopstagram</h1>
-            <input type="checkbox" id="toggle-content">Hide content</input>
-            <input type="checkbox" id="toggle-redirect">Redirect</input>
+            <div class="logo">
+                <h1>Slopstagram</h1>
+            </div>
+            <div class="divider"></div>
+            <div class="toggle-row">
+                <div class="toggle-label">
+                    <span>Hide clutter</span>
+                    <small>Remove distracting elements</small>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-content">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="toggle-row">
+                <div class="toggle-label">
+                    <span>Force messages</span>
+                    <small>Redirect to inbox</small>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-redirect">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
         <div id="error-content" class="hidden">
-            <p>Please open Instagram.</p>
+            <div class="error">
+                <p>Open Instagram to use Slopstagram.</p>
+            </div>
         </div>
         <script src="settings.js"></script>
     </body>
