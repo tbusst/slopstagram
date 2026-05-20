@@ -21,7 +21,15 @@ function checkPath() {
 
 // hides content
 function applyState(enabled) {
-  document.body.style.border = enabled ? "5px solid red" : "";
+    // remove sidebar
+    const threadList = document.querySelector('[aria-label="Thread list"]');
+    const sidebar = threadList.parentElement.parentElement.parentElement;
+    sidebar.style.paddingLeft = enabled ? "0" : "";
+
+    // move conversations over
+    const messagesLink = document.querySelector('a[href="/direct/inbox/"]');
+    const conversations = messagesLink.closest('div[style*="width: 72px"]');
+    conversations.style.display = enabled ? "none" : "";
 }
 
 observer = new MutationObserver(() => {
