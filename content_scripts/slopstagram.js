@@ -21,22 +21,18 @@ function applyState(enabled) {
     document.body.style.border = enabled ? "5px solid red" : "";
 }
 
-function main() {
-    observer = new MutationObserver(() => checkPath());
-    observer.observe(document.documentElement, { childList: true, subtree: true });
+observer = new MutationObserver(() => checkPath());
+observer.observe(document.documentElement, { childList: true, subtree: true });
 
-    (async () => {
-        // check on load
-        checkPath();
+(async () => {
+    // check on load
+    checkPath();
 
-        const { enabled } = await browser.storage.local.get("enabled");
-        applyState(enabled ?? true);
+    const { enabled } = await browser.storage.local.get("enabled");
+    applyState(enabled ?? true);
 
-        // updates local storage when toggle changes
-        browser.storage.onChanged.addListener((changes) => {
-            if (changes.enabled) applyState(changes.enabled.newValue);
-        });
-    })();
-}
-
-main();
+    // updates local storage when toggle changes
+    browser.storage.onChanged.addListener((changes) => {
+        if (changes.enabled) applyState(changes.enabled.newValue);
+    });
+})();
