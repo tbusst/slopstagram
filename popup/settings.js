@@ -1,4 +1,5 @@
-const toggle = document.querySelector("#toggle");
+const toggleContent = document.querySelector("#toggle-content");
+const toggleRedirect = document.querySelector("#toggle-redirect");
 const popupContent = document.querySelector("#popup-content");
 const errorContent = document.querySelector("#error-content");
 
@@ -14,11 +15,16 @@ const errorContent = document.querySelector("#error-content");
     }
 
     // sets toggle state from local storage
-    const { enabled } = await browser.storage.local.get("enabled");
-    toggle.checked = enabled ?? true;
+    const { contentHideEnabled, pageRedirectEnabled } = await browser.storage.local.get(["contentHideEnabled", "pageRedirectEnabled"]);
+    toggleContent.checked = contentHideEnabled ?? true;
+    toggleRedirect.checked = pageRedirectEnabled ?? true;
 })();
 
-// updates local storage when toggle changes
-toggle.addEventListener("change", () => {
-    browser.storage.local.set({ enabled: toggle.checked });
+// updates local storage when toggles change
+toggleContent.addEventListener("change", () => {
+    browser.storage.local.set({ contentHideEnabled: toggleContent.checked });
+});
+
+toggleRedirect.addEventListener("change", () => {
+    browser.storage.local.set({ pageRedirectEnabled: toggleRedirect.checked });
 });
