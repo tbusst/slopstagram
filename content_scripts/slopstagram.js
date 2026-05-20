@@ -35,4 +35,4 @@ observer.observe(document.documentElement, { childList: true, subtree: true });
     browser.storage.onChanged.addListener((changes) => {
         if (changes.enabled) applyState(changes.enabled.newValue);
     });
-})();uuuuuuuuuuuuuuutr55
+})();
