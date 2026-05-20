@@ -21,7 +21,7 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*instagram.com//*"],
+      "matches": ["*://*.instagram.com/*"],
       "js": ["slopstagram.js"]
     }
   ]
