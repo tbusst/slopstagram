@@ -23,6 +23,7 @@ function checkPath() {
 function applyState(enabled) {
     const threadList = document.querySelector('[aria-label="Thread list"]');
     const messagesLink = document.querySelector('a[href="/direct/inbox/"]');
+    if (!threadList || !messagesLink) return;
 
     // remove sidebar
     const sidebar = threadList.parentElement.parentElement.parentElement;
@@ -60,7 +61,16 @@ contentObserver.observe(document.documentElement, { childList: true, subtree: tr
 
     // updates local storage when toggle changes
     browser.storage.onChanged.addListener((changes) => {
-        if (changes.contentHideEnabled) applyState(changes.contentHideEnabled.newValue);
-        if (changes.pageRedirectEnabled) pageRedirectEnabled = changes.pageRedirectEnabled.newValue;
+        if (changes.contentHideEnabled) {
+            contentHideEnabled = changes.contentHideEnabled.newValue;
+            applyState(contentHideEnabled);
+        }
+        if (changes.pageRedirectEnabled) {
+            pageRedirectEnabled = changes.pageRedirectEnabled.newValue;
+            if (pageRedirectEnabled) {
+                isRedirecting = false;
+                checkPath();
+            }
+        }
     });
 })();
