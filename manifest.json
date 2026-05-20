@@ -37,7 +37,8 @@
   "content_scripts": [
     {
       "matches": ["*://*.instagram.com/*"],
-      "js": ["content_scripts/slopstagram.js"]
+      "js": ["content_scripts/slopstagram.js"],
+      "run_at": "document_start"
     }
   ]
 }

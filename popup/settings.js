@@ -4,9 +4,10 @@ const errorContent = document.querySelector("#error-content");
 
 (async () => {
     const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+    const url = new URL(tab.url);
 
     // shows error text if not on instagram
-    if (!tab?.url?.includes("instagram.com")) {
+    if (!url?.hostname.includes("instagram.com")) {
         popupContent.classList.add("hidden");
         errorContent.classList.remove("hidden");
         return;
