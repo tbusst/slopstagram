@@ -21,21 +21,29 @@ function checkPath() {
 
 // hides content
 function applyState(enabled) {
-    // remove sidebar
     const threadList = document.querySelector('[aria-label="Thread list"]');
+    const messagesLink = document.querySelector('a[href="/direct/inbox/"]');
+
+    // remove sidebar
     const sidebar = threadList.parentElement.parentElement.parentElement;
     sidebar.style.paddingLeft = enabled ? "0" : "";
 
     // move conversations over
-    const messagesLink = document.querySelector('a[href="/direct/inbox/"]');
     const conversations = messagesLink.closest('div[style*="width: 72px"]');
     conversations.style.display = enabled ? "none" : "";
 }
 
-observer = new MutationObserver(() => {
+redirectObserver = new MutationObserver(() => {
   if (pageRedirectEnabled) checkPath();
 });
-observer.observe(document.documentElement, { childList: true, subtree: true });
+redirectObserver.observe(document.documentElement, { childList: true, subtree: true });
+
+contentObserver = new MutationObserver(() => {
+  if (contentHideEnabled) {
+    applyState(contentHideEnabled);
+  }
+});
+contentObserver.observe(document.documentElement, { childList: true, subtree: true });
 
 (async () => {
     ({ contentHideEnabled, pageRedirectEnabled } = await browser.storage.local.get([
